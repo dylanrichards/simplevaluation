@@ -1,0 +1,17 @@
+﻿@model StockModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <!--
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    -->
+    
+    <form asp-controller="Home" asp-action="StockOverview" method="post">
+        Stock ticker:
+        <input asp-for="StockTicker">
+        <button type="submit">Load</button>
+    </form>
+</div>
