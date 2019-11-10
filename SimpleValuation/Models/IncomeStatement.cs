@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,15 +15,23 @@ namespace SimpleValuation.Models
 
         public class Financials
         {
+            [DisplayFormat(DataFormatString = "{0:MM/yyyy}", ApplyFormatInEditMode = true)]
+            [JsonProperty("date")]
+            public DateTime Date { get; set; }
+
+            [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
             [JsonProperty("Revenue")]
             public double Revenue { get; set; }
 
+            [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
             [JsonProperty("Cost of Revenue")]
             public double CostofRevenue { get; set; }
 
+            [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
             [JsonProperty("Gross Profit")]
             public double GrossProfit { get; set; }
 
+            [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
             [JsonProperty("EPS")]
             public double EPS { get; set; }
         }

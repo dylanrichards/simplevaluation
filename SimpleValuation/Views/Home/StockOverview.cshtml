@@ -7,15 +7,47 @@
     <img src="@Model.companyProfile.profile.CompanyLogo" width="50" height="50" />
     @Model.companyProfile.symbol
     -
-    @Model.companyProfile.profile.CurrentPrice.ToString("$0.00")
+    @Model.companyProfile.profile.CurrentPrice.ToString()
 </h1>
 
-<p>@Model.companyProfile.profile.CompanyName</p>
+<p>
+    <strong>@Model.companyProfile.profile.CompanyName</strong>
+    -
+    @Model.companyProfile.profile.Description
+    <br />
+    <a href="@Model.companyProfile.profile.CompanyWebsite">@Model.companyProfile.profile.CompanyWebsite</a>
+</p>
 
-
-<p>Revenue: @Model.incomeStatement.financials[0].Revenue.ToString("$0.00")</p>
-<p>Cost of Revenue: @Model.incomeStatement.financials[0].CostofRevenue.ToString("$0.00")</p>
-<p>Gross Profit: @Model.incomeStatement.financials[0].GrossProfit.ToString("$0.00")</p>
-<p>Earnings per share: @Model.incomeStatement.financials[0].EPS.ToString()</p>
-
-<a href="@Model.companyProfile.profile.CompanyWebsite">@Model.companyProfile.profile.CompanyWebsite</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Revenue</th>
+            <th>Cost of Revenue</th>
+            <th>Gross Profit</th>
+            <th>Earnings per Share</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var financial in Model.incomeStatement.financials)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => financial.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => financial.Revenue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => financial.CostofRevenue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => financial.GrossProfit)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => financial.EPS)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
