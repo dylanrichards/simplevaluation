@@ -3,6 +3,12 @@
     ViewData["Title"] = "StockOverview";
 }
 
-<h1>StockOverview</h1>
-<p>@Model.StockTicker</p>
-<p>@Model.IsMicrosoft.ToString()</p>
+<h1>
+    <img src="@Model.CompanyLogo" width="50" height="50" />
+    @Model.StockTicker
+    -
+    @Model.CurrentPrice.ToString("$0.00")
+</h1>
+
+<p>@Model.CompanyName</p>
+<a href="@Model.CompanyWebsite">@Model.CompanyWebsite</a>

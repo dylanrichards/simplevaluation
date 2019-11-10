@@ -27,7 +27,7 @@ namespace SimpleValuation.Controllers
         [HttpPost]
         public RedirectToActionResult StockOverview(StockModel stock)
         {
-            return RedirectToAction("StockOverview", new { id = stock.StockTicker });
+            return RedirectToAction("StockOverview", new { id = stock.StockTicker.ToUpper() });
         }
 
         public IActionResult Index()
