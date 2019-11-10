@@ -11,11 +11,10 @@ namespace SimpleValuation.Models
     {
 
         public string StockTicker { get; set; }
-        public double CurrentPrice { get; set; }
-        public string CompanyName { get; set; }
-        public string CompanyWebsite { get; set; }
-        public string CompanyLogo { get; set; }
 
+        public CompanyProfile companyProfile = new CompanyProfile();
+        public IncomeStatement incomeStatement = new IncomeStatement();
+        
         private static readonly HttpClient client = new HttpClient();
 
         public StockModel()
@@ -32,15 +31,15 @@ namespace SimpleValuation.Models
         private async Task ProcessRepositories()
         {
             client.DefaultRequestHeaders.Accept.Clear();
-            var stringTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/company/profile/" + StockTicker);
+            
+            var profileTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/company/profile/" + StockTicker);
+            var incomeTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/financials/income-statement/" + StockTicker);
 
-            string msg = await stringTask;
+            string profileData = await profileTask;
+            string incomeData = await incomeTask;
 
-            dynamic pricing = JsonConvert.DeserializeObject(msg);
-            CurrentPrice = Convert.ToDouble(pricing.profile.price);
-            CompanyName = pricing.profile.companyName;
-            CompanyWebsite = pricing.profile.website;
-            CompanyLogo = pricing.profile.image;
+            this.companyProfile = JsonConvert.DeserializeObject<CompanyProfile>(profileData);
+            this.incomeStatement = JsonConvert.DeserializeObject<IncomeStatement>(incomeData);
         }
 
     }

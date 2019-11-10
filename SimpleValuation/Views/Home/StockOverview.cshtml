@@ -4,11 +4,18 @@
 }
 
 <h1>
-    <img src="@Model.CompanyLogo" width="50" height="50" />
-    @Model.StockTicker
+    <img src="@Model.companyProfile.profile.CompanyLogo" width="50" height="50" />
+    @Model.companyProfile.symbol
     -
-    @Model.CurrentPrice.ToString("$0.00")
+    @Model.companyProfile.profile.CurrentPrice.ToString("$0.00")
 </h1>
 
-<p>@Model.CompanyName</p>
-<a href="@Model.CompanyWebsite">@Model.CompanyWebsite</a>
+<p>@Model.companyProfile.profile.CompanyName</p>
+
+
+<p>Revenue: @Model.incomeStatement.financials[0].Revenue.ToString("$0.00")</p>
+<p>Cost of Revenue: @Model.incomeStatement.financials[0].CostofRevenue.ToString("$0.00")</p>
+<p>Gross Profit: @Model.incomeStatement.financials[0].GrossProfit.ToString("$0.00")</p>
+<p>Earnings per share: @Model.incomeStatement.financials[0].EPS.ToString()</p>
+
+<a href="@Model.companyProfile.profile.CompanyWebsite">@Model.companyProfile.profile.CompanyWebsite</a>
