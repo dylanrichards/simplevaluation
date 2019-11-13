@@ -34,6 +34,11 @@ namespace SimpleValuation.Models
             [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
             [JsonProperty("EPS")]
             public double EPS { get; set; }
+
+            [JsonProperty("Free Cash Flow margin")]
+            public double FCFMargin { get; set; }
+
+            public double FreeCashFlow { get; set; }
         }
     }
 }
