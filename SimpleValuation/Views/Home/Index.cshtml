@@ -7,7 +7,7 @@
     <form asp-controller="Home" asp-action="StockOverview" method="post">
         Ticker:
         <input asp-for="StockTicker">
-        <input type="range" min="0" max="25" asp-for="GrowthRate">
+        <input type="range" min="0" max="25" value="5" asp-for="GrowthRate">
         <button type="submit">Search</button>
     </form>
 </div>
