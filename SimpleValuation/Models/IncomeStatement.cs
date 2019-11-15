@@ -19,19 +19,19 @@ namespace SimpleValuation.Models
             [JsonProperty("date")]
             public DateTime Date { get; set; }
 
-            [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
+            [DisplayFormat(DataFormatString = "${0:N0}", ApplyFormatInEditMode = true)]
             [JsonProperty("Revenue")]
             public double Revenue { get; set; }
 
-            [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
+            [DisplayFormat(DataFormatString = "${0:N0}", ApplyFormatInEditMode = true)]
             [JsonProperty("Cost of Revenue")]
             public double CostofRevenue { get; set; }
 
-            [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
+            [DisplayFormat(DataFormatString = "${0:N0}", ApplyFormatInEditMode = true)]
             [JsonProperty("Gross Profit")]
             public double GrossProfit { get; set; }
 
-            [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
+            [DisplayFormat(DataFormatString = "${0:N2}", ApplyFormatInEditMode = true)]
             [JsonProperty("EPS")]
             public double EPS { get; set; }
 
