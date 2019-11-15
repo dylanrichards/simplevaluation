@@ -19,15 +19,15 @@ namespace SimpleValuation.Controllers
         }
 
         [HttpGet]
-        public IActionResult StockOverview(string id)
+        public IActionResult StockOverview(string id, double growthRate)
         {
-            return View(new StockModel(id));
+            return View(new StockModel(id, growthRate));
         }
 
         [HttpPost]
         public RedirectToActionResult StockOverview(StockModel stock)
         {
-            return RedirectToAction("StockOverview", new { id = stock.StockTicker.ToUpper() });
+            return RedirectToAction("StockOverview", new { id = stock.StockTicker.ToUpper(),  stock.GrowthRate});
         }
 
         public IActionResult Index()

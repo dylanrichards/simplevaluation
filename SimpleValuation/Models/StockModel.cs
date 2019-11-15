@@ -29,12 +29,12 @@ namespace SimpleValuation.Models
 
         }
 
-        public StockModel(string ticker)
+        public StockModel(string ticker, double growthRate)
         {
             StockTicker = ticker;
             ProcessRepositories().Wait();
 
-            this.GrowthRate = 0.05;
+            this.GrowthRate = growthRate / 100.0;
 
             this.incomeStatement.financials[0].FreeCashFlow = this.incomeStatement.financials[0].FCFMargin * this.incomeStatement.financials[0].Revenue;
             this.Valuation = this.incomeStatement.financials[0].FreeCashFlow / (this.WACC - this.GrowthRate);
