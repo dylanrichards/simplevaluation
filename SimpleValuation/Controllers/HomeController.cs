@@ -46,7 +46,7 @@ namespace SimpleValuation.Controllers
 
             if (valid) return true;
 
-            KeyValuePair<string, string> searchResult = stocks.FirstOrDefault(s => s.Value.Contains(stock.StockTicker));
+            KeyValuePair<string, string> searchResult = stocks.FirstOrDefault(s => s.Value.ToUpper().Contains(stock.StockTicker.ToUpper()));
             if (searchResult.Equals(new KeyValuePair<string, string>())) return false;
 
             stock.StockTicker = searchResult.Key;
