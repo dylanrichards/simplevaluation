@@ -5,3 +5,5 @@
 /.vs/SimpleValuation/v16/Server/sqlite3
 /SimpleValuation/obj/Debug/netcoreapp3.0
 /SimpleValuation/obj
+/SimpleValuation/bin/Debug/netcoreapp3.0
+/.vs/SimpleValuation
