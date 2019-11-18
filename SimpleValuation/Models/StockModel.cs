@@ -32,6 +32,7 @@ namespace SimpleValuation.Models
         public StockModel(string ticker, double growthRate)
         {
             StockTicker = ticker;
+
             ProcessRepositories().Wait();
 
             this.GrowthRate = growthRate / 100.0;
