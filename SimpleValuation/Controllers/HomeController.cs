@@ -42,7 +42,7 @@ namespace SimpleValuation.Controllers
 
         private bool isStockTickerValid(StockModel stock)
         {
-            bool valid = stocks.ContainsKey(stock.StockTicker);
+            bool valid = stocks.ContainsKey(stock.StockTicker.ToUpper());
 
             if (valid) return true;
 
