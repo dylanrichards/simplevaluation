@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/SimpleValuation/v16/Server/sqlite3
+/SimpleValuation/obj/Debug/netcoreapp3.0
+/SimpleValuation/obj
