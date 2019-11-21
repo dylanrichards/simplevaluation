@@ -37,6 +37,8 @@ namespace SimpleValuation.Models
 
             this.GrowthRate = growthRate / 100.0;
 
+            this.incomeStatement.financials = incomeStatement.financials.Take(4).ToArray();
+
             this.incomeStatement.financials[0].FreeCashFlow = this.incomeStatement.financials[0].FCFMargin * this.incomeStatement.financials[0].Revenue;
 
             if (this.incomeStatement.financials[0].FreeCashFlow > 0 && this.WACC > this.GrowthRate)
