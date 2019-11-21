@@ -3,55 +3,116 @@
     ViewData["Title"] = "StockOverview";
 }
 
-<h1>
-    <img src="@Model.companyProfile.profile.CompanyLogo" width="50" height="50" />
-    @Model.companyProfile.symbol
-    -
-    @Model.companyProfile.profile.CurrentPrice.ToString("$0.00")
-</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8">
+            <h1>
+                <img src="@Model.companyProfile.profile.CompanyLogo" width="50" height="50" />
+                @Model.companyProfile.symbol
+                -
+                @Model.companyProfile.profile.CurrentPrice.ToString("$0.00")
+            </h1>
 
-<h3>
-    SimpleValuation - @Model.Valuation.ToString("$0.00")
-</h3>
+            <h3>
+                SimpleValuation - @Model.Valuation.ToString("$0.00")
+            </h3>
 
-<p>
-    <strong>@Model.companyProfile.profile.CompanyName</strong>
-    -
-    @Model.companyProfile.profile.Description
-    <br />
-    <a href="@Model.companyProfile.profile.CompanyWebsite">@Model.companyProfile.profile.CompanyWebsite</a>
-</p>
+            <p>
+                <strong>@Model.companyProfile.profile.CompanyName</strong>
+                -
+                @Model.companyProfile.profile.Description
+                <br />
+                <a href="@Model.companyProfile.profile.CompanyWebsite">@Model.companyProfile.profile.CompanyWebsite</a>
+            </p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Revenue</th>
-            <th>Cost of Revenue</th>
-            <th>Gross Profit</th>
-            <th>Earnings per Share</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var financial in Model.incomeStatement.financials)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => financial.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => financial.Revenue)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => financial.CostofRevenue)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => financial.GrossProfit)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => financial.EPS)
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Revenue</th>
+                        <th>Cost of Revenue</th>
+                        <th>Gross Profit</th>
+                        <th>Earnings per Share</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var financial in Model.incomeStatement.financials)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => financial.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => financial.Revenue)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => financial.CostofRevenue)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => financial.GrossProfit)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => financial.EPS)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            
+        </div>
+        <div class="col-md-4">
+            <!-- TradingView Widget BEGIN -->
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget"></div>
+                <div class="tradingview-widget-copyright">
+                    <a href="https://www.tradingview.com/symbols/@Model.companyProfile.symbol/technicals/" rel="noopener" target="_blank">
+                        <span class="blue-text">Technical Analysis for @Model.companyProfile.symbol</span>
+                    </a> by TradingView
+                </div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+  {
+  "interval": "1m",
+  "width": 425,
+  "colorTheme": "light",
+  "isTransparent": false,
+  "height": 450,
+  "symbol": "@Model.companyProfile.symbol",
+  "showIntervalTabs": true,
+  "locale": "en"
+}
+                </script>
+            </div>
+            <!-- TradingView Widget END -->
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md">
+            <!-- TradingView Widget BEGIN -->
+            <div class="tradingview-widget-container">
+                <div id="tradingview_f0df7"></div>
+                <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/@Model.StockTicker/" rel="noopener" target="_blank"><span class="blue-text">@Model.StockTicker Chart</span></a> by TradingView</div>
+                <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                <script type="text/javascript">
+        new TradingView.widget(
+            {
+                "width": "100%",
+                "height": 610,
+                "symbol": "@Model.companyProfile.symbol",
+                "interval": "D",
+                "timezone": "Etc/UTC",
+                "theme": "Light",
+                "style": "1",
+                "locale": "en",
+                "toolbar_bg": "#f1f3f6",
+                "enable_publishing": false,
+                "allow_symbol_change": true,
+                "container_id": "tradingview_f0df7"
+            }
+        );
+                </script>
+            </div>
+            <!-- TradingView Widget END -->
+        </div>
+    </div>
+</div>
