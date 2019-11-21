@@ -38,9 +38,11 @@ namespace SimpleValuation.Models
             this.GrowthRate = growthRate / 100.0;
 
             this.incomeStatement.financials[0].FreeCashFlow = this.incomeStatement.financials[0].FCFMargin * this.incomeStatement.financials[0].Revenue;
-            this.Valuation = this.incomeStatement.financials[0].FreeCashFlow / (this.WACC - this.GrowthRate);
 
-            this.Valuation = this.Valuation / this.enterpriseValue.enterpriseValues[0].NumberofShares;
+            if (this.incomeStatement.financials[0].FreeCashFlow > 0 && this.WACC > this.GrowthRate)
+                this.Valuation = (this.incomeStatement.financials[0].FreeCashFlow / (this.WACC - this.GrowthRate)) / this.enterpriseValue.enterpriseValues[0].NumberofShares;
+            else
+                this.Valuation = discountedCashFlow.DCF;
         }
 
         private async Task ProcessRepositories()
