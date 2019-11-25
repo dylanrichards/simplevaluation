@@ -24,11 +24,6 @@ namespace SimpleValuation.Controllers
         {
             _logger = logger;
             GetTickers().Wait();
-
-            watchlist.Add("SPX");
-            watchlist.Add("MSFT");
-            watchlist.Add("MMM");
-            watchlist.Add("AAPL");
         }
 
         [HttpGet]
@@ -43,7 +38,7 @@ namespace SimpleValuation.Controllers
             if (!isStockTickerValid(stock))
                 return RedirectToAction("Index");
 
-
+            watchlist.Add(stock.StockTicker);
             return RedirectToAction("StockOverview", new { id = stock.StockTicker.ToUpper(), stock.GrowthRate });
         }
 
