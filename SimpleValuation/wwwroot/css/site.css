@@ -78,3 +78,31 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+/* The slider itself */
+.slider {
+    -webkit-appearance: none; 
+    width: 15%; 
+    height: 25px; 
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7; 
+    -webkit-transition: .2s; 
+    transition: opacity .2s;
+}
+
+#StockTicker {
+    height: 25px;
+    width: 20%;
+}
+
+#SearchButton {
+    height: 25px;
+}
+
+.TickerSearchItem {
+    margin-left: 3px;
+    margin-right: 3px;
+}
+ 
+
