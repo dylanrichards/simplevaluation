@@ -2,18 +2,19 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+<head>
+    <script src="https://kit.fontawesome.com/01d85533ba.js" crossorigin="anonymous"></script>
+</head>
 
 <div class="container">
-    <div class="row justify-content-md-center">
-        <div class="text-center">
-            <form asp-controller="Home" asp-action="StockOverview" method="post">
-                Search:
-                <input style="color:#000000;" asp-for="StockTicker">
-                <input type="range" min="0" max="25" value="5" asp-for="GrowthRate">
-                <button type="submit">Search</button>
-            </form>
-        </div>
-    </div>
+        <form class="row justify-content-md-center" asp-controller="Home" asp-action="StockOverview" method="post">
+            Search:
+            <input class ="TickerSearchItem" style="color:#000000;" asp-for="StockTicker">
+            <input type="range" min="0" max="25" value="5" asp-for="GrowthRate" class="slider" id="GrowthRateSlider">
+            <p class="TickerSearchItem">Growth Rate: <span id="GrowthRateValue"></span>%</p>
+            <button class ="TickerSearchItem" id ="SearchButton" type="submit">Search</button>
+        </form>
+ 
     <div class="row" style="padding-top:2em; padding-left:15px; padding-right:15px;">
         <h4>Recent</h4>
         <!-- TradingView Widget BEGIN -->
@@ -133,3 +134,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    var slider = document.getElementById("GrowthRateSlider");
+    var output = document.getElementById("GrowthRateValue");
+    output.innerHTML = slider.value;
+
+    slider.oninput = function () {
+        output.innerHTML = this.value;
+    }
+</script>
+
