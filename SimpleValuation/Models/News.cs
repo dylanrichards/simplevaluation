@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SimpleValuation.Models
 {
-    public class News  
+    public class News
     {
         public string symbol { get; set; }
 
@@ -19,13 +19,11 @@ namespace SimpleValuation.Models
             [JsonProperty("title")]
             public string Title { get; set; }
 
-
             [JsonProperty("text")]
             public string Text { get; set; }
 
             [JsonProperty("source_name")]
             public string Source { get; set; }
-
 
             [DisplayFormat(DataFormatString = "{0:MM/yyyy}", ApplyFormatInEditMode = true)]
             [JsonProperty("date")]
@@ -34,18 +32,6 @@ namespace SimpleValuation.Models
             [JsonProperty("news_url")]
             public string NewsUrl { get; set; }
 
-            public StockModel Ticker { get; set; }
-
-
-
-
-
-
         }
-
     }
-
-    
-
-
 }
