@@ -10,8 +10,6 @@ namespace SimpleValuation.Models
 {
     public class News
     {
-        public string symbol { get; set; }
-
         public NewsData[] data;
 
         public class NewsData
