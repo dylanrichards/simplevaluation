@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -17,6 +18,7 @@ namespace SimpleValuation.Controllers
         private static readonly HttpClient client = new HttpClient();
 
         private Dictionary<string, string> stocks;
+        public static HashSet<string> watchlist = new HashSet<string>();
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -36,8 +38,8 @@ namespace SimpleValuation.Controllers
             if (!isStockTickerValid(stock))
                 return RedirectToAction("Index");
 
-                
-            return RedirectToAction("StockOverview", new { id = stock.StockTicker.ToUpper(),  stock.GrowthRate});
+            watchlist.Add(stock.StockTicker);
+            return RedirectToAction("StockOverview", new { id = stock.StockTicker.ToUpper(), stock.GrowthRate });
         }
 
         private bool isStockTickerValid(StockModel stock)
@@ -55,6 +57,7 @@ namespace SimpleValuation.Controllers
 
         public IActionResult Index()
         {
+            ViewData.Add("watchlist", getWatchlistString());
             return View();
         }
 
@@ -78,6 +81,26 @@ namespace SimpleValuation.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public static string getWatchlistString()
+        {
+            if (watchlist.Count < 1) return "{ \"proName\": \"SPX\"}";
+
+            StringBuilder sb = new StringBuilder();
+
+            watchlist.ToList().ForEach(ticker =>
+            {
+                sb.Append('{');
+                sb.Append("\"description\": \"\",");
+                sb.Append("\"proName\": \"");
+                sb.Append(ticker);
+                sb.Append("\" },");
+            });
+
+            sb.Length--;
+
+            return sb.ToString();
         }
     }
 }
