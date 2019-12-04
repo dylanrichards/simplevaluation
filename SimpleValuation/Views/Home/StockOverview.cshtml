@@ -87,7 +87,7 @@
 
     </div>
     <div class="row">
-        <div class="col-md">
+        <div class="col-md-8">
             <!-- TradingView Widget BEGIN -->
             <div class="tradingview-widget-container">
                 <div id="tradingview_f0df7"></div>
@@ -113,6 +113,22 @@
                 </script>
             </div>
             <!-- TradingView Widget END -->
+        </div>
+        <div class="col-md-4">
+            @foreach (var data in Model.news.data)
+            {
+                <div class="media">
+                    <div class="media-body">
+                        <h5 class="media-heading"> <a href="@Html.DisplayFor(modelItem => data.NewsUrl)">@Html.DisplayFor(modelItem => data.Title)</a></h5>
+                        <p>
+                            <small><i>Posted on @Html.DisplayFor(modelItem => data.Date) </i></small>
+                            <br />
+                            <small><i>Source: @Html.DisplayFor(modelItem => data.Source) </i></small>
+                        </p>
+                        <p> @Html.DisplayFor(modelItem => data.Text)</p>
+                    </div>
+                </div>
+            }
         </div>
     </div>
 </div>
