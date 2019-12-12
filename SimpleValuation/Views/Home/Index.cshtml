@@ -8,8 +8,7 @@
 
 <div class="container">
         <form class="row justify-content-md-center" asp-controller="Home" asp-action="StockOverview" method="post">
-            Search:
-            <input class ="TickerSearchItem" style="color:#000000;" asp-for="StockTicker">
+            <input autofocus class ="TickerSearchItem" style="color:#000000;" placeholder="Name or Ticker" asp-for="StockTicker">
             <input type="range" min="0" max="25" value="5" asp-for="GrowthRate" class="slider" id="GrowthRateSlider">
             <p class="TickerSearchItem">Growth Rate: <span id="GrowthRateValue"></span>%</p>
             <button class ="TickerSearchItem" id ="SearchButton" type="submit">Search</button>
