@@ -70,7 +70,7 @@ namespace SimpleValuation.Controllers
         {
             client.DefaultRequestHeaders.Accept.Clear();
 
-            var tickerTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/company/stock/list");
+            var tickerTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/company/stock/list?apikey=" + Startup.FMF_APIKEY);
             string tickerData = await tickerTask;
 
             StockList symbolsList = JsonConvert.DeserializeObject<StockList>(tickerData);

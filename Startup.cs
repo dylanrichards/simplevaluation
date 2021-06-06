@@ -13,8 +13,12 @@ namespace SimpleValuation
 {
     public class Startup
     {
+
+        public static string FMF_APIKEY;
+
         public Startup(IConfiguration configuration)
         {
+            FMF_APIKEY = configuration.GetValue<string>("ApiKey");
             Configuration = configuration;
         }
 

@@ -39,11 +39,11 @@ namespace SimpleValuation.Models
 
             this.incomeStatement.financials = incomeStatement.financials.Take(4).ToArray();
 
-            this.incomeStatement.financials[0].FreeCashFlow = this.incomeStatement.financials[0].FCFMargin * this.incomeStatement.financials[0].Revenue;
+            //this.incomeStatement.financials[0].FreeCashFlow = this.incomeStatement.financials[0].FCFMargin * this.incomeStatement.financials[0].Revenue;
 
-            if (this.incomeStatement.financials[0].FreeCashFlow > 0 && this.WACC > this.GrowthRate)
-                this.Valuation = (this.incomeStatement.financials[0].FreeCashFlow / (this.WACC - this.GrowthRate)) / this.enterpriseValue.enterpriseValues[0].NumberofShares;
-            else
+            //if (this.incomeStatement.financials[0].FreeCashFlow > 0 && this.WACC > this.GrowthRate)
+            //    this.Valuation = (this.incomeStatement.financials[0].FreeCashFlow / (this.WACC - this.GrowthRate)) / this.enterpriseValue.enterpriseValues[0].NumberofShares;
+            //else
                 this.Valuation = discountedCashFlow.DCF;
         }
 
@@ -51,11 +51,11 @@ namespace SimpleValuation.Models
         {
             client.DefaultRequestHeaders.Accept.Clear();
             
-            var profileTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/company/profile/" + StockTicker);
-            var incomeTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/financials/income-statement/" + StockTicker);
-            var enterpriseTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/enterprise-value/" + StockTicker);
-            var dcfTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/company/discounted-cash-flow/" + StockTicker);
-            var waccTask = client.GetStringAsync("https://financialmodelingprep.com/weighted-average-cost-of-capital/" + StockTicker);
+            var profileTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/company/profile/" + StockTicker + "?apikey=" + Startup.FMF_APIKEY);
+            var incomeTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/financials/income-statement/" + StockTicker + "?limit=120&apikey=" + Startup.FMF_APIKEY);
+            var enterpriseTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/enterprise-value/" + StockTicker + "?apikey=" + Startup.FMF_APIKEY);
+            var dcfTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/company/discounted-cash-flow/" + StockTicker + "?apikey=" + Startup.FMF_APIKEY);
+            var waccTask = client.GetStringAsync("https://financialmodelingprep.com/weighted-average-cost-of-capital/" + StockTicker + "?apikey=" + Startup.FMF_APIKEY);
 
             string profileData = await profileTask;
             string incomeData = await incomeTask;
@@ -73,9 +73,9 @@ namespace SimpleValuation.Models
 
         private void setWACC(string strWACC)
         {
-            int index = strWACC.IndexOf("<tr><th>Wacc</th> <td class=\"align-right\"><input type=\"number\" value=\"");
+            int index = strWACC.IndexOf("<tr><th>Wacc</th> <td class=\"align-right\"><input type=\"number\" id=\"wacc\" value=\"");
        
-            string wacc = strWACC.Substring(index + 70, 5);
+            string wacc = strWACC.Substring(index + 80, 5);
 
             int end = wacc.IndexOf("\"");
             if(end != -1) wacc = wacc.Substring(0, end);

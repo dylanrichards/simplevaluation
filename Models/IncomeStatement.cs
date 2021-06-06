@@ -35,8 +35,8 @@ namespace SimpleValuation.Models
             [JsonProperty("EPS")]
             public double EPS { get; set; }
 
-            [JsonProperty("Free Cash Flow margin")]
-            public double FCFMargin { get; set; }
+            //[JsonProperty("Free Cash Flow margin")]
+            //public double FCFMargin { get; set; }
 
             public double FreeCashFlow { get; set; }
         }
