@@ -18,7 +18,7 @@ namespace SimpleValuation
 
         public Startup(IConfiguration configuration)
         {
-            FMF_APIKEY = configuration.GetValue<string>("ApiKey");
+            FMF_APIKEY = Environment.GetEnvironmentVariable("FMF_APIKEY");
             Configuration = configuration;
         }
 
