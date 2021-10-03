@@ -7,10 +7,10 @@
     <div class="row">
         <div class="col-md-8">
             <h1>
-                <img src="@Model.companyProfile.profile.CompanyLogo" width="50" height="50" />
+                <img src="@Model.companyProfile.CompanyLogo" width="50" height="50" />
                 @Model.companyProfile.symbol
                 -
-                @Model.companyProfile.profile.CurrentPrice.ToString("$0.00")
+                @Model.companyProfile.CurrentPrice.ToString("$0.00")
             </h1>
 
             <h3>
@@ -18,11 +18,11 @@
             </h3>
 
             <p>
-                <strong>@Model.companyProfile.profile.CompanyName</strong>
+                <strong>@Model.companyProfile.CompanyName</strong>
                 -
-                @Model.companyProfile.profile.Description
+                @Model.companyProfile.Description
                 <br />
-                <a href="@Model.companyProfile.profile.CompanyWebsite">@Model.companyProfile.profile.CompanyWebsite</a>
+                <a href="@Model.companyProfile.CompanyWebsite">@Model.companyProfile.CompanyWebsite</a>
             </p>
 
             <table class="table">
@@ -36,7 +36,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var financial in Model.incomeStatement.financials)
+                    @foreach (var financial in Model.incomeStatements)
                     {
                         <tr>
                             <td>
@@ -65,8 +65,8 @@
             <div class="tradingview-widget-container">
                 <div class="tradingview-widget-container__widget"></div>
                 <div class="tradingview-widget-copyright">
-                    <a href="https://www.tradingview.com/symbols/@Model.companyProfile.symbol/technicals/" rel="noopener" target="_blank">
-                        <span class="blue-text">Technical Analysis for @Model.companyProfile.symbol</span>
+                    <a href="https://www.tradingview.com/symbols/@Model.StockTicker/technicals/" rel="noopener" target="_blank">
+                        <span class="blue-text">Technical Analysis for @Model.StockTicker</span>
                     </a> by TradingView
                 </div>
                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
@@ -76,7 +76,7 @@
   "colorTheme": "dark",
   "isTransparent": false,
   "height": 450,
-  "symbol": "@Model.companyProfile.symbol",
+  "symbol": "@Model.StockTicker",
   "showIntervalTabs": true,
   "locale": "en"
 }
@@ -98,7 +98,7 @@
             {
                 "width": "100%",
                 "height": 610,
-                "symbol": "@Model.companyProfile.symbol",
+                "symbol": "@Model.StockTicker",
                 "interval": "D",
                 "timezone": "Etc/UTC",
                 "theme": "Dark",

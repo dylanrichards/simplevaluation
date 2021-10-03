@@ -1,21 +1,11 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SimpleValuation.Models
 {
+    /* https://financialmodelingprep.com/developer/docs#Company-Enterprise-Value */
     public class EnterpriseValue
     {
-
-        public EnterpriseValues[] enterpriseValues;
-        
-        public class EnterpriseValues
-        {
-            [JsonProperty("Number of Shares")]
-            public double NumberofShares { get; set; }
-        }
-
+        [JsonProperty("numberOfShares")]
+        public double NumberofShares { get; set; }
     }
 }

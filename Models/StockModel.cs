@@ -1,8 +1,5 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -17,10 +14,11 @@ namespace SimpleValuation.Models
 
         public double Valuation { get; set; }
 
-        public CompanyProfile companyProfile = new CompanyProfile();
-        public IncomeStatement incomeStatement = new IncomeStatement();
-        public EnterpriseValue enterpriseValue = new EnterpriseValue();
-        public DiscountedCashFlow discountedCashFlow = new DiscountedCashFlow();
+        public CompanyProfile companyProfile;
+        public List<IncomeStatement> incomeStatements;
+        public CashFlowStatement cashFlowStatement;
+        public EnterpriseValue enterpriseValue;
+        public DiscountedCashFlow discountedCashFlow;
 
         private static readonly HttpClient client = new HttpClient();
 
@@ -37,13 +35,9 @@ namespace SimpleValuation.Models
 
             this.GrowthRate = growthRate / 100.0;
 
-            this.incomeStatement.financials = incomeStatement.financials.Take(4).ToArray();
-
-            //this.incomeStatement.financials[0].FreeCashFlow = this.incomeStatement.financials[0].FCFMargin * this.incomeStatement.financials[0].Revenue;
-
-            //if (this.incomeStatement.financials[0].FreeCashFlow > 0 && this.WACC > this.GrowthRate)
-            //    this.Valuation = (this.incomeStatement.financials[0].FreeCashFlow / (this.WACC - this.GrowthRate)) / this.enterpriseValue.enterpriseValues[0].NumberofShares;
-            //else
+            if (this.cashFlowStatement.FreeCashFlow > 0 && this.WACC > this.GrowthRate)
+                this.Valuation = (this.cashFlowStatement.FreeCashFlow / (this.WACC - this.GrowthRate)) / this.enterpriseValue.NumberofShares;
+            else
                 this.Valuation = discountedCashFlow.DCF;
         }
 
@@ -51,24 +45,27 @@ namespace SimpleValuation.Models
         {
             client.DefaultRequestHeaders.Accept.Clear();
             
-            var profileTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/company/profile/" + StockTicker + "?apikey=" + Startup.FMF_APIKEY);
-            var incomeTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/financials/income-statement/" + StockTicker + "?limit=120&apikey=" + Startup.FMF_APIKEY);
-            var enterpriseTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/enterprise-value/" + StockTicker + "?apikey=" + Startup.FMF_APIKEY);
-            var dcfTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/company/discounted-cash-flow/" + StockTicker + "?apikey=" + Startup.FMF_APIKEY);
+            var profileTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/profile/" + StockTicker + "?apikey=" + Startup.FMF_APIKEY);
+            var incomeTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/income-statement/" + StockTicker + "?limit=4&apikey=" + Startup.FMF_APIKEY);
+            var cashFlowTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/cash-flow-statement/" + StockTicker + "?limit=1&apikey=" + Startup.FMF_APIKEY);
+            var enterpriseTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/enterprise-values/" + StockTicker + "?apikey=" + Startup.FMF_APIKEY);
+            var dcfTask = client.GetStringAsync("https://financialmodelingprep.com/api/v3/discounted-cash-flow/" + StockTicker + "?apikey=" + Startup.FMF_APIKEY);
             var waccTask = client.GetStringAsync("https://financialmodelingprep.com/weighted-average-cost-of-capital/" + StockTicker + "?apikey=" + Startup.FMF_APIKEY);
 
             string profileData = await profileTask;
             string incomeData = await incomeTask;
+            string cashFlowData = await cashFlowTask;
             string enterpriseData = await enterpriseTask;
             string dcfData = await dcfTask;
             string waccData = await waccTask;
 
             setWACC(waccData);
 
-            this.companyProfile = JsonConvert.DeserializeObject<CompanyProfile>(profileData);
-            this.incomeStatement = JsonConvert.DeserializeObject<IncomeStatement>(incomeData);
-            this.enterpriseValue = JsonConvert.DeserializeObject<EnterpriseValue>(enterpriseData);
-            this.discountedCashFlow = JsonConvert.DeserializeObject<DiscountedCashFlow>(dcfData);
+            this.companyProfile = JsonConvert.DeserializeObject<List<CompanyProfile>>(profileData)[0];
+            this.incomeStatements = JsonConvert.DeserializeObject<List<IncomeStatement>>(incomeData);
+            this.cashFlowStatement = JsonConvert.DeserializeObject<List<CashFlowStatement>>(cashFlowData)[0];
+            this.enterpriseValue = JsonConvert.DeserializeObject<List<EnterpriseValue>>(enterpriseData)[0];
+            this.discountedCashFlow = JsonConvert.DeserializeObject<List<DiscountedCashFlow>>(dcfData)[0];
         }
 
         private void setWACC(string strWACC)

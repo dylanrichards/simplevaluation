@@ -1,15 +1,12 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace SimpleValuation.Models
 {
+    /* https://financialmodelingprep.com/developer/docs#Company-Discounted-cash-flow-value */
     public class DiscountedCashFlow
     {
 
-        [JsonProperty("DCF")]
+        [JsonProperty("dcf")]
         public double DCF { get; set; }
 
     }
